@@ -11,9 +11,9 @@ author: anosov1960
 ms.author: sashan
 ms.reviewer: sstein, carlrab
 manager: craigg
-ms.date: 02/25/2019
+ms.date: 03/27/2019
 ---
-# Use read-only replicas to load balance read-only query workloads (preview)
+# Use read-only replicas to load balance read-only query workloads
 
 **Read Scale-Out** allows you to load balance Azure SQL Database read-only workloads using the capacity of one read-only replica.
 
@@ -68,9 +68,17 @@ SELECT DATABASEPROPERTYEX(DB_NAME(), 'Updateability')
 > [!NOTE]
 > At any given time only one of the AlwaysON replicas is accessible by the ReadOnly sessions.
 
+## Performance monitoring and troubleshooting of read-only replica
+When connected to a read-only replica, you can monitor performance metrics by calling `sys.dm_db_resource_stats` DMV. To troubleshoot query performance, use `sys.dm_exec_query_stats`,  `sys.dm_exec_sql_text` and `sys.dm_exec_query_plan` DMVs.
+
+> [!NOTE]
+> Features that require read-write access to the database, such as  Query Data Store, Extended evens etc., are not supported on read-only replica.
+
 ## Enable and disable Read Scale-Out
 
 Read Scale-Out is enabled by default in [Managed Instance](sql-database-managed-instance.md) Business Critical tier. It should be explicitly enabled in [database placed on SQL Database server](sql-database-servers.md) Premium and Business Critical tiers. The methods for enabling and disabling Read Scale-Out is described here.
+
+
 
 ### PowerShell: Enable and disable Read Scale-Out
 
